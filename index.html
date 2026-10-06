@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>쿠팡! - 오늘의 발견</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cp-red: #E31A22;
+      --cp-blue: #0073E9;
+      --cp-bg: #F4F5F7;
+      --cp-dark: #111111;
+      --cp-gray: #767676;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      background-color: var(--cp-bg);
+      color: var(--cp-dark);
+      overflow-x: hidden;
+    }
+
+    /* =========================================
+       1. TOP SEARCH & GNB
+       ========================================= */
+    .coupang-top-header {
+      background: #FFFFFF;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #EAEAEA;
+    }
+
+    .top-search-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      gap: 10px;
+    }
+
+    .cp-logo-text {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--cp-red);
+      letter-spacing: -1px;
+      text-decoration: none;
+    }
+
+    .cp-search-bar {
+      flex: 1;
+      position: relative;
+    }
+
+    .cp-search-bar input {
+      width: 100%;
+      height: 36px;
+      border: 2px solid var(--cp-red);
+      border-radius: 4px;
+      padding: 0 34px 0 10px;
+      font-size: 13px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .cp-search-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+    }
+
+    .cp-nav-tabs {
+      display: flex;
+      background: #FFFFFF;
+      overflow-x: auto;
+      white-space: nowrap;
+      border-bottom: 1px solid #E5E5E5;
+      padding: 0 8px;
+    }
+
+    .cp-tab-item {
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #555;
+    }
+
+    .cp-tab-item.active {
+      color: var(--cp-red);
+      border-bottom: 2px solid var(--cp-red);
+    }
+
+    /* =========================================
+       2. COUPANG STANDARD TOP HERO BANNER (TEST A ONLY)
+       Tập trung duy nhất vào Tên hãng + Tiêu đề Test A
+       ========================================= */
+    .banner-container-section {
+      padding: 10px 12px;
+      background: #FFFFFF;
+    }
+
+    .cp-ad-banner {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      background: linear-gradient(135deg, #10141E 0%, #182032 50%, #20293D 100%);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      transition: transform 0.15s ease;
+    }
+
+    .cp-ad-banner:active {
+      transform: scale(0.99);
+    }
+
+    /* Shoe Product Image placed on right side */
+    .banner-shoe-img {
+      position: absolute;
+      right: -25px;
+      bottom: -15px;
+      width: 250px;
+      height: 250px;
+      object-fit: contain;
+      transform: rotate(-10deg);
+      filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6));
+      z-index: 1;
+    }
+
+    /* Text Overlay placed on left side */
+    .banner-content-left {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+      max-width: 68%;
+    }
+
+    .banner-brand-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      color: #8AB4F8;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    /* Test A Gain Headline (Typography chuẩn banner Coupang) */
+    .banner-test-headline {
+      font-size: 22px;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1.35;
+      letter-spacing: -0.6px;
+      word-break: keep-all;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .banner-test-headline span {
+      color: #FFD13B;
+    }
+
+    .banner-cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 14px;
+      background: #FFFFFF;
+      color: #111111;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* =========================================
+       3. COUPANG OFFICIAL TOOLS & CATEGORY GRID
+       ========================================= */
+    .quick-tools-section {
+      background: #FFFFFF;
+      padding: 16px 12px 20px;
+      margin-top: 8px;
+      border-top: 1px solid #EAEAEA;
+      border-bottom: 1px solid #EAEAEA;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px 4px;
+      text-align: center;
+    }
+
+    .tool-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .tool-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: #F4F6F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .tool-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: #333333;
+      letter-spacing: -0.3px;
+    }
+
+    /* Promo Sub Banners */
+    .sub-banner-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px;
+      background: #FFFFFF;
+      margin-top: 8px;
+      margin-bottom: 80px;
+    }
+
+    .sub-promo-box {
+      flex: 1;
+      background: #F9FAFC;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid #EAEAEA;
+    }
+
+    .sub-promo-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 2px;
+    }
+
+    .sub-promo-desc {
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* =========================================
+       4. COUPANG BOTTOM NAVIGATION BAR
+       ========================================= */
+    .cp-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 58px;
+      background: #FFFFFF;
+      border-top: 1px solid #E5E5E5;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #666;
+      font-size: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      width: 20%;
+    }
+
+    .nav-btn.active {
+      color: var(--cp-red);
+      font-weight: 700;
+    }
+
+    .nav-btn-icon {
+      font-size: 19px;
+    }
+
+    /* =========================================
+       VIEW 2: PRODUCT DETAIL PAGE (ON CLICK)
+       ========================================= */
+    #detail-page-view {
+      display: none;
+      min-height: 100vh;
+      background: #FFFFFF;
+      padding-bottom: 70px;
+    }
+
+    .detail-nav-bar {
+      position: sticky;
+      top: 0;
+      background: #FFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid #EEE;
+      z-index: 100;
+    }
+
+    .detail-hero-box {
+      width: 100%;
+      height: 320px;
+      background: #FAFAFA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .detail-hero-box img {
+      max-width: 90%;
+      max-height: 280px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .detail-body {
+      padding: 16px;
+    }
+
+    .detail-brand-name {
+      color: var(--cp-blue);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .detail-product-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .detail-pricing-box {
+      border-top: 1px solid #F0F0F0;
+      border-bottom: 1px solid #F0F0F0;
+      padding: 12px 0;
+      margin-bottom: 16px;
+    }
+
+    .detail-bottom-actions {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-top: 1px solid #EAEAEA;
+      padding: 10px 14px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .btn-cp-cart {
+      flex: 1;
+      height: 46px;
+      border: 1px solid #CCC;
+      background: #FFF;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    .btn-cp-buy {
+      flex: 2;
+      height: 46px;
+      border: none;
+      background: var(--cp-blue);
+      color: #FFF;
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================
+       VIEW 1: COUPANG HOMEPAGE
+       ========================================= -->
+  <div id="home-page-view">
+    
+    <!-- Top Search Header -->
+    <header class="coupang-top-header">
+      <div class="top-search-row">
+        <span class="cp-logo-text">coupang</span>
+        <div class="cp-search-bar">
+          <input type="text" value="MLB 빅볼청키" readonly>
+          <span class="cp-search-icon">🔍</span>
+        </div>
+        <span style="font-size: 20px;">🛒</span>
+      </div>
+      <div class="cp-nav-tabs">
+        <div class="cp-tab-item active">골드박스</div>
+        <div class="cp-tab-item">로켓배송</div>
+        <div class="cp-tab-item">로켓프레시</div>
+        <div class="cp-tab-item">쿠팡플레이</div>
+        <div class="cp-tab-item">기획전</div>
+      </div>
+    </header>
+
+    <!-- CLEAN STANDARD AD BANNER (TEST A GAIN HEADLINE ONLY) -->
+    <section class="banner-container-section">
+      <div class="cp-ad-banner" id="ab-test-banner">
+        
+        <!-- Text Content on Left Side -->
+        <div class="banner-content-left">
+          <span class="banner-brand-tag">MLB KOREA</span>
+          <h1 class="banner-test-headline">
+            빅볼청키 BIG A<br>
+            <span>6cm 키높이</span> & 완벽한 핏
+          </h1>
+          <div class="banner-cta-pill">
+            자세히 보기 〉
+          </div>
+        </div>
+
+        <!-- Shoe Asset on Right Side -->
+        <img class="banner-shoe-img" 
+             src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/ff5df797-9e4a-579a-a221-389530faa4a5/3e8cf789-6124-5215-bbd5-ca04762847e5.jpg" 
+             alt="MLB BIG A">
+
+      </div>
+    </section>
+
+    <!-- COUPANG OFFICIAL TOOLS & CATEGORY ICONS -->
+    <section class="quick-tools-section">
+      <div class="tools-grid">
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #0073E9;">🚀</div>
+          <span class="tool-name">로켓배송</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #00A859;">🥬</div>
+          <span class="tool-name">로켓프레시</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #FFA400;">🎁</div>
+          <span class="tool-name">골드박스</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #D4AF37;">✨</div>
+          <span class="tool-name">R.LUX</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #79529cfb;">🎬</div>
+          <span class="tool-name">쿠팡플레이</span>
+        </div>
+
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #E31A22;">✈️</div>
+          <span class="tool-name">로켓직구</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #E91E63;">👗</div>
+          <span class="tool-name">패션위크</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #FF7043;">🏷️</div>
+          <span class="tool-name">쿠폰존</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #26A69A;">💄</div>
+          <span class="tool-name">뷰티관</span>
+        </div>
+        <div class="tool-item">
+          <div class="tool-icon-circle" style="color: #5C6BC0;">👑</div>
+          <span class="tool-name">랭킹쇼핑</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sub Promo Boxes -->
+    <div class="sub-banner-row">
+      <div class="sub-promo-box">
+        <div class="sub-promo-title">와우 멤버십 혜택</div>
+        <div class="sub-promo-desc">무제한 무료배송 & 무료반품</div>
+      </div>
+      <div class="sub-promo-box">
+        <div class="sub-promo-title">오늘의 브랜드</div>
+        <div class="sub-promo-desc">MLB 코리아 단독 기획전</div>
+      </div>
+    </div>
+
+    <!-- Coupang Official Bottom Navigation Bar -->
+    <nav class="cp-bottom-nav">
+      <a href="#" class="nav-btn active">
+        <span class="nav-btn-icon">🏠</span>
+        <span>홈</span>
+      </a>
+      <a href="#" class="nav-btn">
+        <span class="nav-btn-icon">☰</span>
+        <span>카테고리</span>
+      </a>
+      <a href="#" class="nav-btn">
+        <span class="nav-btn-icon">👤</span>
+        <span>마이쿠팡</span>
+      </a>
+      <a href="#" class="nav-btn">
+        <span class="nav-btn-icon">🤍</span>
+        <span>찜한상품</span>
+      </a>
+      <a href="#" class="nav-btn">
+        <span class="nav-btn-icon">🛒</span>
+        <span>장바구니</span>
+      </a>
+    </nav>
+  </div>
+
+
+  <!-- =========================================
+       VIEW 2: PRODUCT DETAIL PAGE (ON CLICK)
+       ========================================= -->
+  <div id="detail-page-view">
+    <div class="detail-nav-bar">
+      <button onclick="backToHome()" style="background:none; border:none; font-size:18px; cursor:pointer; font-weight:bold;">←</button>
+      <span style="font-weight: 800; font-size: 15px;">상품상세</span>
+      <span style="font-size: 18px;">🛒</span>
+    </div>
+
+    <div class="detail-hero-box">
+      <img src="https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/ff5df797-9e4a-579a-a221-389530faa4a5/3e8cf789-6124-5215-bbd5-ca04762847e5.jpg" alt="MLB BIG A 키높이 운동화">
+    </div>
+
+    <div class="detail-body">
+      <div class="detail-brand-name">MLB KOREA OFFICIAL</div>
+      <h1 class="detail-product-title">MLB 운동화 남녀공용 BIG A 키높이 신발 + 벨뉴슈즈렉 증정</h1>
+
+      <div class="detail-pricing-box">
+        <div style="font-size: 13px; color: #888; text-decoration: line-through;">정상가 149,000원</div>
+        <div style="display:flex; align-items:baseline; gap:8px;">
+          <span style="color:var(--cp-red); font-size:24px; font-weight:900;">34%</span>
+          <span style="font-size:24px; font-weight:900; color:#111;">98,000원</span>
+        </div>
+        <div style="color:var(--cp-blue); font-size:13px; font-weight:800; margin-top:4px;">
+          🚀 로켓배송 | 내일(수) 새벽 7시 전 도착 보장
+        </div>
+      </div>
+
+      <div style="font-size: 13px; color: #444; line-height: 1.6;">
+        • <b>기본 구성</b>: MLB BIG A 정품 키높이 운동화 (6cm 솔)<br>
+        • <b>단독 사은품</b>: 프리미엄 벨뉴슈즈렉 (신발 정리대) 100% 동봉 출고<br>
+        • <b>배송 혜택</b>: 로켓배송 / 30일 이내 무료 반품 보장
+      </div>
+    </div>
+
+    <div class="detail-bottom-actions">
+      <button class="btn-cp-cart">장바구니</button>
+      <button class="btn-cp-buy" onclick="alert('주문이 완료되었습니다. (Test A Click Conversion Recorded)')">
+        바로구매 (로켓배송)
+      </button>
+    </div>
+  </div>
+
+
+  <!-- =========================================
+       INTERACTION SCRIPT
+       ========================================= -->
+  <script>
+    var banner = document.getElementById('ab-test-banner');
+    var homeView = document.getElementById('home-page-view');
+    var detailView = document.getElementById('detail-page-view');
+
+    // Chuyển sang trang chi tiết khi bấm vào Banner Test A
+    banner.addEventListener('click', function() {
+      console.log('[A/B Test] User clicked on Test A Banner (Gain Frame)!');
+      homeView.style.display = 'none';
+      detailView.style.display = 'block';
+      window.scrollTo(0, 0);
+    });
+
+    function backToHome() {
+      detailView.style.display = 'none';
+      homeView.style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
